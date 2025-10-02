@@ -11,29 +11,28 @@ import { ThemeProvider } from "@/components/theme-provider"
 export default async function HomePage() {
   const supabase = await createClient()
 
-  // Fetch all content from database
   const [{ data: hero }, { data: about }, { data: services }, { data: gallery }, { data: contact }, { data: config }] =
     await Promise.all([
-      supabase.from("hero_section").select("*").limit(1).single(),
-      supabase.from("about_section").select("*").limit(1).single(),
+      supabase.from("hero_section").select("*").limit(1).maybeSingle(),
+      supabase.from("about_section").select("*").limit(1).maybeSingle(),
       supabase.from("services").select("*").eq("is_active", true).order("display_order"),
       supabase.from("gallery").select("*").eq("is_active", true).order("display_order").limit(6),
-      supabase.from("contact_info").select("*").limit(1).single(),
-      supabase.from("site_config").select("*").limit(1).single(),
+      supabase.from("contact_info").select("*").limit(1).maybeSingle(),
+      supabase.from("site_config").select("*").limit(1).maybeSingle(),
     ])
 
   return (
-    <ThemeProvider colors={config}>
+    <ThemeProvider colors={config || undefined}>
       <div className="min-h-screen bg-background" dir="rtl">
-        <Header contact={contact} />
+        <Header contact={contact || undefined} />
         <main>
-          <HeroSection data={hero} />
-          <AboutSection data={about} />
+          <HeroSection data={hero || undefined} />
+          <AboutSection data={about || undefined} />
           <ServicesSection data={services || []} />
           <GallerySection data={gallery || []} />
-          <ContactSection data={contact} />
+          <ContactSection data={contact || undefined} />
         </main>
-        <Footer contact={contact} />
+        <Footer contact={contact || undefined} />
       </div>
     </ThemeProvider>
   )
