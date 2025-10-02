@@ -1,22 +1,22 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Inter, Roboto_Mono } from "next/font/google"
 import "./globals.css"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 })
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
 })
 
 export const metadata: Metadata = {
   title: "شركة المناسبات الدولية",
   description: "نحول أحلامك إلى واقع مبهر - خدمات تنظيم المناسبات والفعاليات",
-    generator: 'v0.app'
+  generator: "v0.app",
 }
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ar" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="ar" className={`${inter.variable} ${robotoMono.variable}`}>
       <body className="antialiased">{children}</body>
     </html>
   )
